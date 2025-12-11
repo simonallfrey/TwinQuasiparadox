@@ -1,0 +1,203 @@
+Notebook[{
+ Cell["The Twin (Quasi)Paradox", "Title"],
+ Cell["Plain, DRY structure: define constants and one acceleration scenario; solve once; then plot and caption. To try another experiment, edit only the scenario data.", "Text"],
+
+ Cell["1) Constants (do not change unless you want different units):", "Text"],
+ Cell[BoxData[
+   ToBoxes[
+    (
+     ClearAll[g, c, yearSec, cLyPerYear];
+     g = 9.80665;                (* m/s^2 *)
+     c = 299792458;              (* m/s *)
+     yearSec = 365.25*24*3600;   (* s/year *)
+     cLyPerYear = 1;             (* we use ly/year so c = 1 ly/year *)
+    )
+   ]
+  ], "Input"],
+
+ Cell["2) Acceleration scenario (edit this block to run a new experiment):", "Text"],
+ Cell[BoxData[
+   ToBoxes[
+    (
+     ClearAll[scenario];
+     (* Each item: {tauStart, tauEnd, accelLyPerYear2} in ly/year^2. *)
+     scenario = {
+       {0, 5, 0.3},
+       {5, 15, -0.3},
+       {15, 20, 0.3}
+     };
+    )
+   ]
+  ], "Input"],
+
+ Cell["3) Derived acceleration function and solver:", "Text"],
+ Cell[BoxData[
+   ToBoxes[
+    (
+     ClearAll[aFun, solveWorldline];
+
+     (* numeric acceleration *)
+     aFun[tau_?NumericQ] := N@Piecewise[
+       ({#3, #1 <= tau < #2} &) @@@ scenario,
+       0
+     ];
+
+     solveWorldline[tauMax_] := Module[{sol},
+       sol = NDSolveValue[
+         {
+          x'[tau] == Sinh[eta[tau]],
+          t'[tau] == Cosh[eta[tau]],
+          eta'[tau] == aFun[tau],
+          x[0.] == 0., t[0.] == 0., eta[0.] == 0.
+         },
+         {x, t, eta},
+         {tau, 0., tauMax},
+         Method -> {"EquationSimplification" -> "Residual", "DiscontinuityProcessing" -> False}
+       ];
+       <|"x" -> sol[[1]], "t" -> sol[[2]], "eta" -> sol[[3]], "tauMax" -> tauMax|>
+     ];
+    )
+   ]
+  ], "Input"],
+
+ Cell["4) Plotting and figure assembly (logic only; no scenario hard-coding):", "Text"],
+ Cell[BoxData[
+   ToBoxes[
+    (
+     ClearAll[style, legendFor, worldlinePlot, buildFigure];
+
+     style = <|
+       "worldline" -> Directive[Thick, RGBColor[0.35, 0.6, 1]],
+       "dtauPoint" -> {DarkBlue, PointSize[0.03]},
+       "simLine" -> {Orange, Dashed, Thin},
+       "simPoint" -> {Orange, PointSize[0.03]},
+       "axisLabel" -> Directive[FontSize -> 16],
+       "legendLabel" -> Directive[White, 14],
+       "caption" -> Directive[White, 14]
+     |>;
+
+     legendFor[] := Placed[
+       SwatchLegend[
+        {
+         style["worldline"],
+         style["dtauPoint"],
+         style["simLine"],
+         style["simPoint"]
+        },
+        {
+         "Traveler worldline",
+         "Equal \[CapitalDelta]\[Tau] markers (1 yr)",
+         "Simultaneity line (traveler's \"now\")",
+         "t-axis intercept = stay-at-home age"
+        },
+        LegendMarkers -> {
+          {Graphics[{Line[{{0, 0}, {1, 0}}]}], 30},
+          {Graphics[{Disk[]}], 16},
+          {Graphics[{Dashing[{Small, Small}], Line[{{0, 0}, {1, 0}}]}], 30},
+          {Graphics[{Disk[]}], 16}
+        },
+        LabelStyle -> style["legendLabel"],
+        LegendFunction -> (Framed[#, Background -> Black, FrameStyle -> Gray, FrameMargins -> 10] &)
+       ],
+       {Right, 0.9}
+     ];
+
+     worldlinePlot[sol_Association, opts : OptionsPattern[{Npts -> 20, XRange -> {-1, 10}, TRange -> {0, All}, ImageSize -> 800}]] :=
+       Module[{n = OptionValue[Npts], xrange = OptionValue[XRange], trange = OptionValue[TRange],
+         img = OptionValue[ImageSize], tauMax = sol["tauMax"], tauMarks, pts, vAt, bAt, simultPrims, tauLabels},
+        tauMarks = Subdivide[0, tauMax, n];
+        pts = {sol["x"][#], sol["t"][#]} & /@ tauMarks;
+        vAt[t_] := Tanh[sol["eta"][t]];
+        bAt[t_] := sol["t"][t] - vAt[t]*sol["x"][t];
+
+        simultPrims = Table[
+          Module[{v = vAt[t], b = bAt[t], x1 = xrange[[1]], x2 = xrange[[2]]},
+            {
+             style["simLine"],
+             Line[{{x1, v*x1 + b}, {x2, v*x2 + b}}],
+             style["simPoint"], Point[{0, b}],
+             Text[Style[NumberForm[b, {4, 1}], DarkBlue, 10, Bold], {0, b}, {0, 0}]
+            }
+          ],
+          {t, tauMarks}
+        ];
+
+        tauLabels = MapThread[
+          Text[Style[NumberForm[#1, {4, 1}], Orange, 10, Bold], #2, {0, 0}] &,
+          {tauMarks, pts}
+        ];
+
+        Legended[
+         ParametricPlot[{sol["x"][tau], sol["t"][tau]}, {tau, 0, tauMax},
+           PlotStyle -> style["worldline"],
+           PlotRange -> {xrange, trange},
+           AxesLabel -> {"x (ly)", "t (yr)"},
+           BaseStyle -> style["axisLabel"],
+           AspectRatio -> 1,
+           ImageSize -> img,
+           Prolog -> simultPrims,
+           Epilog -> {style["dtauPoint"], Point[pts], tauLabels},
+           Background -> Black
+         ],
+         legendFor[]
+        ]
+       ];
+
+     buildFigure[tauMax_: 20] := Module[{sol, homeAge, deltaAge},
+       sol = solveWorldline[tauMax];
+       homeAge = sol["t"][tauMax] - Tanh[sol["eta"][tauMax]]*sol["x"][tauMax];
+       deltaAge = homeAge - tauMax;
+       Panel[
+        Column[
+         {
+          Style["The Twin (Quasi)Paradox", White, 22, Bold],
+          worldlinePlot[sol],
+          Column[
+           {
+            Style["Traveler's proper time \[Tau] (their clock) vs stay-at-home inertial time t.", style["caption"]],
+            Style["Trajectory: accelerate out, flip, then return while decelerating/accelerating.", style["caption"]],
+            Style[
+             Column[{
+               Row[{"0 \[LessEqual] \[Tau] < 5 yr: +", scenario[[1, 3]], " ly/", Superscript["year", 2], " (≈ ", NumberForm[scenario[[1, 3]]*(c/yearSec)/g, {3, 2}], " g)"}],
+               Row[{"5 \[LessEqual] \[Tau] < 15 yr: ", scenario[[2, 3]] > 0 /. {True -> "+", False -> ""}, scenario[[2, 3]], " ly/", Superscript["year", 2], " (≈ ", NumberForm[scenario[[2, 3]]*(c/yearSec)/g, {3, 2}], " g)"}],
+               Row[{"15 \[LessEqual] \[Tau] < 20 yr: ", scenario[[3, 3]] > 0 /. {True -> "+", False -> ""}, scenario[[3, 3]], " ly/", Superscript["year", 2], " (≈ ", NumberForm[scenario[[3, 3]]*(c/yearSec)/g, {3, 2}], " g)"}]
+              },
+              Spacings -> 0.2],
+             style["caption"]
+            ],
+            Style[
+             Row[{
+               "At \[Tau] = ", tauMax, " yr, stay-at-home age from simultaneity: ",
+               NumberForm[homeAge, {5, 2}], " yr (older by ", NumberForm[deltaAge, {4, 2}], " yr)."
+             }],
+             style["caption"]
+            ],
+            Style[
+             "Caveat: this \"inferred\" stay-at-home age depends on the traveler's simultaneity choice—relativity has no global now, only local here-and-now.",
+             style["caption"]
+            ]
+           },
+           Alignment -> Center,
+           Spacings -> 0.4
+          ]
+         },
+         Alignment -> Center,
+         Spacings -> {Automatic, 0.6}
+        ],
+        Background -> Black,
+        FrameMargins -> 10
+       ]
+     ];
+    )
+   ]
+  ], "Input"],
+
+ Cell["5) Run the figure builder (no edits needed here):", "Text"],
+ Cell[BoxData[
+   ToBoxes[
+    buildFigure[]
+   ]
+  ], "Input"]
+ },
+ StyleDefinitions -> "Default.nb"
+]
