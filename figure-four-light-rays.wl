@@ -6,7 +6,7 @@ c = 299792458;
 yearSec = 365.25*24*3600;
 travColor = RGBColor[0.35, 0.6, 1];
 homeColor = Orange;
-plotPad = {{60, 20}, {70, 50}};
+plotPad = {{55, 15}, {70, 50}};
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -40,14 +40,14 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
             emit = sol["t"][t] - Abs[sol["x"][t]]},
         {
           {homeColor, Dashed}, Line[{{0, emit}, pt}],
-          {homeColor, PointSize[0.015]}, Point[{0, emit}],
-          Text[Style[NumberForm[emit, {4, 1}], homeColor, 9], {0, emit}, {-1.2, 0}]
+          {homeColor, PointSize[0.012]}, Point[{0, emit}],
+          Text[Style[NumberForm[emit, {4, 1}], homeColor, 8], {0, emit}, {-1.2, 0}]
         }],
       {t, tauMarks}
     ] // Flatten;
   labels =
     MapThread[
-      Text[Style[NumberForm[#1, {4, 1}], Orange, 9], #2] &,
+      Text[Style[NumberForm[#1, {4, 1}], Orange, 8], #2] &,
       {tauMarks, pts}
     ];
   ParametricPlot[
@@ -60,7 +60,7 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     Axes -> False,
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
-    ImageSize -> 720,
+    ImageSize -> 780,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -82,14 +82,14 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
             arr = sol["t"][t] + Abs[sol["x"][t]]},
         {
           {travColor, Dashed}, Line[{pt, {0, arr}}],
-          {travColor, PointSize[0.015]}, Point[{0, arr}],
-          Text[Style[NumberForm[arr, {4, 1}], travColor, 9], {0, arr}, {-1.2, 0}]
+          {travColor, PointSize[0.012]}, Point[{0, arr}],
+          Text[Style[NumberForm[arr, {4, 1}], travColor, 8], {0, arr}, {-1.2, 0}]
         }],
       {t, tauMarks}
     ] // Flatten;
   labels =
     MapThread[
-      Text[Style[NumberForm[#1, {4, 1}], Orange, 9], #2] &,
+      Text[Style[NumberForm[#1, {4, 1}], Orange, 8], #2] &,
       {tauMarks, pts}
     ];
   ParametricPlot[
@@ -102,7 +102,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     Axes -> False,
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
-    ImageSize -> 720,
+    ImageSize -> 780,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -128,7 +128,7 @@ observedTravelerAge[tauMax_: 20] := Module[
     PlotStyle -> {travColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
-    ImageSize -> 720,
+    ImageSize -> 780,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -157,7 +157,7 @@ observedHomeAge[tauMax_: 20] := Module[
     PlotStyle -> {homeColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
-    ImageSize -> 720,
+    ImageSize -> 780,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
