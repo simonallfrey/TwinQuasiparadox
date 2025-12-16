@@ -62,6 +62,7 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     ImageSize -> 500,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> 20,
+    PlotLabel -> Style["Home \[Rule] traveler signals", White, 14, Bold],
     GridLines -> Automatic,
     Prolog -> lightRays,
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
@@ -102,6 +103,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     ImageSize -> 500,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> 20,
+    PlotLabel -> Style["Traveler \[Rule] home signals", White, 14, Bold],
     GridLines -> Automatic,
     Prolog -> lightRays,
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
@@ -126,6 +128,7 @@ observedTravelerAge[tauMax_: 20] := Module[
     ImageSize -> 500,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> 20,
+    PlotLabel -> Style["Traveler age observed at home", White, 14, Bold],
     GridLines -> Automatic,
     Background -> Black,
     FrameStyle -> White,
@@ -153,6 +156,7 @@ observedHomeAge[tauMax_: 20] := Module[
     ImageSize -> 500,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> 20,
+    PlotLabel -> Style["Home age observed by traveler", White, 14, Bold],
     GridLines -> Automatic,
     Background -> Black,
     FrameStyle -> White,
@@ -166,23 +170,15 @@ observedHomeAge[tauMax_: 20] := Module[
 figure[tauMax_: 20] := GraphicsGrid[
   {
     {
-      Style["Home \[Rule] traveler signals", White, 14, Bold],
-      Style["Traveler age observed at home", White, 14, Bold]
-    },
-    {
       lightRaysHomeToTraveler[tauMax, 20],
       observedTravelerAge[tauMax]
-    },
-    {
-      Style["Traveler \[Rule] home signals", White, 14, Bold],
-      Style["Home age observed by traveler", White, 14, Bold]
     },
     {
       lightRaysTravelerToHome[tauMax, 20],
       observedHomeAge[tauMax]
     }
   },
-  Spacings -> {1.0, 1.0},
+  Spacings -> {1.2, 1.2},
   Background -> Black
 ];
 
