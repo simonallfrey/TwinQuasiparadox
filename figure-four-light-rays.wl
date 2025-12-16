@@ -96,17 +96,19 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
 ];
 
 observedTravelerAge[tauMax_: 20] := Module[
-  {sol = solve[tauMax], tauGrid, arrivalsAtHome, data, diagMax},
+  {sol = solve[tauMax], tauGrid, arrivalsAtHome, data, diagMax, prMax},
   tauGrid = Subdivide[0., tauMax, 400];
   arrivalsAtHome = sol["t"] /@ tauGrid + Abs[sol["x"] /@ tauGrid];
   data = SortBy[Transpose[{arrivalsAtHome, tauGrid}], First];
   diagMax = Max[First /@ data];
+  prMax = diagMax;
   ListLinePlot[
     data,
     Frame -> True,
     FrameLabel -> {"Home proper time (yr)", "Observed traveler age (yr)"},
     PlotStyle -> {RGBColor[0.35, 0.6, 1]},
-    PlotRange -> {{0, All}, {0, All}},
+    PlotRange -> {{0, prMax}, {0, prMax}},
+    AspectRatio -> 1,
     ImageSize -> 500,
     GridLines -> Automatic,
     Background -> Black,
@@ -119,17 +121,19 @@ observedTravelerAge[tauMax_: 20] := Module[
 ];
 
 observedHomeAge[tauMax_: 20] := Module[
-  {sol = solve[tauMax], tauGrid, emitsToTraveler, data, diagMax},
+  {sol = solve[tauMax], tauGrid, emitsToTraveler, data, diagMax, prMax},
   tauGrid = Subdivide[0., tauMax, 400];
   emitsToTraveler = sol["t"] /@ tauGrid - Abs[sol["x"] /@ tauGrid];
   data = Transpose[{tauGrid, emitsToTraveler}];
   diagMax = Max[tauMax, Max[Last /@ data]];
+  prMax = diagMax;
   ListLinePlot[
     data,
     Frame -> True,
     FrameLabel -> {"Traveler proper time (yr)", "Observed home age (yr)"},
     PlotStyle -> {Orange},
-    PlotRange -> {{0, All}, {0, All}},
+    PlotRange -> {{0, prMax}, {0, prMax}},
+    AspectRatio -> 1,
     ImageSize -> 500,
     GridLines -> Automatic,
     Background -> Black,
