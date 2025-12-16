@@ -10,17 +10,25 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
   - Initial conditions: `x(0)=0`, `t(0)=0`, `η(0)=0`.
 - **Numerics**: `NDSolveValue` with residual simplification and no discontinuity processing; solutions stored as pure functions for `{x,t,eta}`.
 
-## Metric and Time Dilation (Signature − + + +)
+## The Physics of Time Dilation (Signature − + + +)
 - Minkowski line element (1+1 for our plots, `c=1` in ly/yr units):
   $$
   ds^2 = -\,dt^2 + dx^2 = -\,d\tau^2
   $$
-  The spatial part enters with a negative sign in this signature; proper time is the negative norm of the spacetime interval.
+  Proper time is the negative norm of the spacetime interval; the spatial part enters with a minus sign in this signature.
 - For a timelike worldline with velocity $v = dx/dt$:
   $$
   d\tau = dt\,\sqrt{1 - v^2} \quad\Rightarrow\quad \gamma = \frac{dt}{d\tau} = \frac{1}{\sqrt{1 - v^2}}
   $$
-- Rapidities evolve via $\eta' = a(\tau)$ and enforce $\cosh \eta = dt/d\tau = \gamma$, $\sinh \eta = dx/d\tau$; these give the ODEs used in the scripts.
+- Rapidity $\eta$ linearizes velocity addition and encodes boosts:
+  $$
+  v = \tanh \eta,\quad \gamma = \cosh \eta,\quad \gamma v = \sinh \eta
+  $$
+  so the cosh–sinh pair automatically satisfies $\cosh^2 \eta - \sinh^2 \eta = 1$. In proper-time form,
+  $$
+  \frac{dt}{d\tau} = \cosh \eta,\quad \frac{dx}{d\tau} = \sinh \eta,\quad \eta'(\tau) = a(\tau)
+  $$
+  which are exactly the ODEs integrated in the scripts.
 
 ## Visualization Themes
 - **Light-ray grids** (`figure-four-light-rays.wl`): Uses actual light signals between traveler and home; overlays home worldline; plots observed ages vs proper times.
