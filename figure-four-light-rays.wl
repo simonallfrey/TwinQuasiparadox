@@ -188,4 +188,4 @@ figure[tauMax_: 20] := GraphicsGrid[
 ];
 
 (* run *)
-Export["twin-quasi-paradox-light-ray-grid.png", figure[], ImageResolution -> 300];
+Export["twin-quasi-paradox-light-ray-grid.png", figure[], ImageResolution -> 600];
