@@ -18,7 +18,7 @@ makePanel[cVal_, xRange_, tRange_, xLabel_, tLabel_, tag_] := Module[{},
     Background -> Black,
     AxesStyle -> White,
     BaseStyle -> {White, 11},
-    ImagePadding -> 60,
+    ImagePadding -> 40,
     ImageSize -> 500,
     AspectRatio -> 1
     ]
