@@ -30,6 +30,39 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
   $$
   which are exactly the ODEs integrated in the scripts.
 
+### Lorentz Boosts (Matrix Form)
+- Standard boost in $(t, x)$ with velocity $v$ (here $c=1$):
+  $$
+  \begin{pmatrix}
+  t' \\\\ x'
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  \gamma & -\gamma v \\\\
+  -\gamma v & \gamma
+  \end{pmatrix}
+  \begin{pmatrix}
+  t \\\\ x
+  \end{pmatrix},
+  \quad \gamma = \frac{1}{\sqrt{1 - v^2}}.
+  $$
+- Rapidity form (same boost) with $\gamma = \cosh \eta$, $\gamma v = \sinh \eta$:
+  $$
+  \begin{pmatrix}
+  t' \\\\ x'
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+  \cosh \eta & -\,\sinh \eta \\\\
+  -\,\sinh \eta & \cosh \eta
+  \end{pmatrix}
+  \begin{pmatrix}
+  t \\\\ x
+  \end{pmatrix},
+  \quad \eta = \operatorname{arctanh}(v).
+  $$
+  The rapidity parameterizes boosts additively: composing boosts amounts to adding rapidities, which is why the ODEs track $\eta(\tau)$ directly.
+
 ## Visualization Themes
 - **Light-ray grids** (`figure-four-light-rays.wl`): Uses actual light signals between traveler and home; overlays home worldline; plots observed ages vs proper times.
 - **Light-ray grids (2-yr markers)** (`figure-four-light-rays-2yr.wl`): Same as above but traveler markers every 2 years to reduce clutter.
