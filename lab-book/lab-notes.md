@@ -37,6 +37,20 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
   ```
 - For normal batch workflows, run `WolframKernel -run` directly and inspect outputs without any watcher.
 
+## Continuation Notes (For Future Work)
+- **Current outputs**: Three plot scripts (light rays 1-yr, light rays 2-yr, simultaneity) and their PNGs live in `lab-book/` and export at 1200 DPI with consistent styling and axes.
+- **Execution pattern**: From repo root or `lab-book/`, run `WolframKernel -noprompt -run 'PacletManager`$AllowInternet=True; Get["<script>.wl"]; Exit[]'`. Always include `Exit[]` and `-noprompt` to prevent hanging kernels.
+- **Config hygiene**: If using `wolframscript`, set `WOLFRAMSCRIPT_CONFIGURATIONPATH` to the file path and `WOLFRAMSCRIPT_KERNELPATH` to `/usr/local/bin/WolframKernel`. Direct `WolframKernel` is simpler in this repo.
+- **Network/paclets**: Plot themes/imports can pull paclets; allow network when generating styled figures. If offline, set `PacletManager`$AllowInternet=False` and avoid theme-dependent styles.
+- **Processes**: After any interactive command, check for stray `WolframKernel` PIDs; kill them if needed. Keep `-noprompt` + `Exit[]` in commands.
+- **Watcher**: Only use the watcher tail/execute trick if you need GUI opens from the sandbox; otherwise skip it for safety.
+- **Next steps (ideas)**:
+  - Add additional scenarios (different accel profiles) by editing `scenario` and regenerating figures.
+  - Add combined PDF/markdown export of figures with captions.
+  - Extend simultaneity/inferred-age panels with more annotation or alternative simultaneity conventions.
+  - Script a one-shot `make`/shell wrapper to regenerate all PNGs.
+- **Where to look**: Latest changes are on `main` (commit `9c68fdc` and later). All self-contained assets are in `lab-book/`.
+
 ## How to Reproduce Figures
 From `lab-book`:
 ```bash
