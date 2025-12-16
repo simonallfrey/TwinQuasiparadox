@@ -23,6 +23,20 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
 - **Process lifecycle**: Always terminate with `Exit[]` to avoid stray kernels; `-noprompt` prevents interactive waits.
 - **Watcher workaround**: Commands were queued to a user-run watcher file for GUI `mimeopen`; not required for batch runs.
 
+## Watcher Mechanism (Insecure Convenience)
+- During this session a user-run “watcher” tailed a file (e.g., `/tmp/codex-commands`) and executed each line via `sh -c` to open PNGs with `mimeopen` in a GUI context.
+- This is **not secure**: anything written to that file executes as the user. Use only in a disposable, trusted environment; disable when not needed.
+- A minimal watcher example (do **not** use in untrusted settings):
+  ```bash
+  watchfile=/tmp/codex-commands
+  tail -f "$watchfile" | while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    printf '[cmd] %s\n' "$line"
+    sh -c "$line"
+  done
+  ```
+- For normal batch workflows, run `WolframKernel -run` directly and inspect outputs without any watcher.
+
 ## How to Reproduce Figures
 From `lab-book`:
 ```bash
@@ -634,4 +648,3 @@ figure[tauMax_: 20] := GraphicsGrid[
 (* run *)
 Export["twin-quasi-paradox-simultaneity-grid.png", figure[], ImageResolution -> 1200];
 ```
-
