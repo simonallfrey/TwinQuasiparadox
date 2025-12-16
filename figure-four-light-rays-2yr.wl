@@ -67,8 +67,8 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 10] := Module[
     FrameTicksStyle -> White,
     GridLines -> Automatic,
     PlotLabel -> Style["Home \[Rule] traveler signals", White, 14, Bold],
-    Prolog -> lightRays,
-    Epilog -> {homeLine, {DarkBlue, PointSize[0.03], Point[pts]}, labels},
+    Prolog -> Join[{homeLine}, lightRays],
+    Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
   ]
 ];
@@ -110,7 +110,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 10] := Module[
     FrameTicksStyle -> White,
     GridLines -> Automatic,
     PlotLabel -> Style["Traveler \[Rule] home signals", White, 14, Bold],
-    Prolog -> lightRays,
+    Prolog -> Join[{homeLine}, lightRays],
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
   ]
