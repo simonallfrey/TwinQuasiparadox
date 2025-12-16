@@ -1,4 +1,4 @@
-(* Two-panel comparison: light cones with t vertical, x horizontal, square aspect *)
+(* Two-panel comparison: light cones with t vertical, x horizontal, square aspect, clean labels *)
 
 Clear[makePanel];
 makePanel[cVal_, xRange_, tRange_, xLabel_, tLabel_, tag_] := Module[{},
@@ -12,23 +12,21 @@ makePanel[cVal_, xRange_, tRange_, xLabel_, tLabel_, tag_] := Module[{},
      Graphics[Text[Style[tag, 12, Gray], {0, -0.82 tRange}]]
      },
     Axes -> True,
-    AxesLabel -> {xLabel, tLabel},
+    AxesLabel -> {Style[xLabel, 11, White], Style[tLabel, 11, White]},
+    TicksStyle -> White,
     PlotRange -> {{-xRange, xRange}, {-tRange, tRange}},
     Background -> Black,
     AxesStyle -> White,
     BaseStyle -> {White, 11},
+    ImagePadding -> 60,
     ImageSize -> 500,
     AspectRatio -> 1
     ]
   ];
 
-(* Left: light-seconds, seconds, symmetric +/-1 *)
 panel1 = makePanel[1, 1, 1, "x (light-sec)", "t (sec)", "c = 1"];
-
-(* Right: kilometers, milliseconds; c in km/ms = 300 km/ms; enforce correct cone lines with c*)
 cKmPerMs = 300; (* 3e5 km/s = 300 km/ms *)
 panel2 = makePanel[cKmPerMs, 1000, 20, "x (km)", "t (ms)", "c = 3×10^5 km/s"];
 
-GraphicsRow[{panel1, panel2}, Spacings -> 1.0, Background -> Black] //
+GraphicsRow[{panel1, panel2}, Spacings -> 0.8, Background -> Black, ImageMargins -> 20] //
   Export["lab-book/elsewhere-two-scales.png", #, ImageResolution -> 300] &;
-
