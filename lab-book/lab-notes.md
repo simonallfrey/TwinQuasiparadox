@@ -161,6 +161,11 @@ Exports:
   - Preview:
     ![Simultaneity](twin-quasi-paradox-simultaneity-grid.png)
 
+- **Elsewhere with c ≫ 1 (illustrative)**:
+  - File: `elsewhere-not-c1.png`
+  - Preview:
+    ![Elsewhere when c is large](elsewhere-not-c1.png)
+
 ## Full Code Listings
 
 ### figure-four-light-rays.wl
