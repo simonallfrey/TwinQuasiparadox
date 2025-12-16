@@ -6,7 +6,7 @@ c = 299792458;
 yearSec = 365.25*24*3600;
 travColor = RGBColor[0.35, 0.6, 1];
 homeColor = Orange;
-plotPad = {{60, 20}, {80, 40}};
+plotPad = {{60, 20}, {70, 50}};
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -128,7 +128,7 @@ observedTravelerAge[tauMax_: 20] := Module[
     PlotStyle -> {travColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
-    ImageSize -> 620,
+    ImageSize -> 720,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -157,7 +157,7 @@ observedHomeAge[tauMax_: 20] := Module[
     PlotStyle -> {homeColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
-    ImageSize -> 620,
+    ImageSize -> 720,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
