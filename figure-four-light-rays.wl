@@ -40,14 +40,14 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
             emit = sol["t"][t] - Abs[sol["x"][t]]},
         {
           {homeColor, Dashed}, Line[{{0, emit}, pt}],
-          {homeColor, PointSize[0.02]}, Point[{0, emit}],
-          Text[Style[NumberForm[emit, {4, 1}], homeColor, 10, Bold], {0, emit}, {-1.2, 0}]
+          {homeColor, PointSize[0.015]}, Point[{0, emit}],
+          Text[Style[NumberForm[emit, {4, 1}], homeColor, 9], {0, emit}, {-1.2, 0}]
         }],
       {t, tauMarks}
     ] // Flatten;
   labels =
     MapThread[
-      Text[Style[NumberForm[#1, {4, 1}], Orange, 10, Bold], #2] &,
+      Text[Style[NumberForm[#1, {4, 1}], Orange, 9], #2] &,
       {tauMarks, pts}
     ];
   ParametricPlot[
@@ -60,7 +60,7 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     Axes -> False,
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
-    ImageSize -> 620,
+    ImageSize -> 720,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -82,14 +82,14 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
             arr = sol["t"][t] + Abs[sol["x"][t]]},
         {
           {travColor, Dashed}, Line[{pt, {0, arr}}],
-          {travColor, PointSize[0.02]}, Point[{0, arr}],
-          Text[Style[NumberForm[arr, {4, 1}], travColor, 10, Bold], {0, arr}, {-1.2, 0}]
+          {travColor, PointSize[0.015]}, Point[{0, arr}],
+          Text[Style[NumberForm[arr, {4, 1}], travColor, 9], {0, arr}, {-1.2, 0}]
         }],
       {t, tauMarks}
     ] // Flatten;
   labels =
     MapThread[
-      Text[Style[NumberForm[#1, {4, 1}], Orange, 10, Bold], #2] &,
+      Text[Style[NumberForm[#1, {4, 1}], Orange, 9], #2] &,
       {tauMarks, pts}
     ];
   ParametricPlot[
@@ -102,7 +102,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     Axes -> False,
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
-    ImageSize -> 620,
+    ImageSize -> 720,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
