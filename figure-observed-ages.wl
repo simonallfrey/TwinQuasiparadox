@@ -28,7 +28,7 @@ solve[tauMax_] := Module[{sol},
 ];
 
 figure[tauMax_: 20] := Module[
-  {sol = solve[tauMax], tauGrid, worldline, arrivalsAtHome, topData, topDiagMax, topTurn, topPlot, emitsToTraveler, bottomData, bottomDiagMax, bottomTurn, bottomPlot},
+  {sol = solve[tauMax], tauGrid, worldline, arrivalsAtHome, topData, topDiagMax, topPlot, emitsToTraveler, bottomData, bottomDiagMax, bottomPlot},
   tauGrid = Subdivide[0., tauMax, 400];
   worldline = {sol["x"][#], sol["t"][#]} & /@ tauGrid;
 
@@ -36,7 +36,6 @@ figure[tauMax_: 20] := Module[
   arrivalsAtHome = sol["t"] /@ tauGrid + Abs[sol["x"] /@ tauGrid];
   topData = SortBy[Transpose[{arrivalsAtHome, tauGrid}], First];
   topDiagMax = Max[First /@ topData];
-  topTurn = SelectFirst[topData, #[[2]] >= scenario[[2, 1]] &];
   topPlot = ListLinePlot[
     topData,
     Frame -> True,
@@ -49,23 +48,14 @@ figure[tauMax_: 20] := Module[
     FrameStyle -> White,
     BaseStyle -> {White, 12},
     Epilog -> {
-      {Gray, Dashed, Line[{{0, 0}, {topDiagMax, topDiagMax}}]},
-      If[topTurn =!= Missing["NotFound"],
-        {
-          {Red, PointSize[0.025], Point[topTurn]},
-          Text[Style["turnaround", Red, 11, Bold], topTurn, {0, -1.2}]
-        },
-        {}
-      ]
-    },
-    PlotMarkers -> None
+      {Gray, Dashed, Line[{{0, 0}, {topDiagMax, topDiagMax}}]}
+    }
   ];
 
   (* signals from home to traveler: emission time from x=0 that reaches traveler at a given tau *)
   emitsToTraveler = sol["t"] /@ tauGrid - Abs[sol["x"] /@ tauGrid];
   bottomData = Transpose[{tauGrid, emitsToTraveler}];
   bottomDiagMax = Max[tauMax, Max[Last /@ bottomData]];
-  bottomTurn = {scenario[[2, 1]], sol["t"][scenario[[2, 1]]] - Abs[sol["x"][scenario[[2, 1]]]]};
   bottomPlot = ListLinePlot[
     bottomData,
     Frame -> True,
@@ -78,13 +68,8 @@ figure[tauMax_: 20] := Module[
     FrameStyle -> White,
     BaseStyle -> {White, 12},
     Epilog -> {
-      {Gray, Dashed, Line[{{0, 0}, {bottomDiagMax, bottomDiagMax}}]},
-      {
-        {Red, PointSize[0.025], Point[bottomTurn]},
-        Text[Style["turnaround", Red, 11, Bold], bottomTurn, {0, -1.2}]
-      }
-    },
-    PlotMarkers -> None
+      {Gray, Dashed, Line[{{0, 0}, {bottomDiagMax, bottomDiagMax}}]}
+    }
   ];
 
   GraphicsGrid[
