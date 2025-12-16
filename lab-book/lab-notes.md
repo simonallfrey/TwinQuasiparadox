@@ -37,19 +37,35 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
   ```
 - For normal batch workflows, run `WolframKernel -run` directly and inspect outputs without any watcher.
 
-## Continuation Notes (For Future Work)
-- **Current outputs**: Three plot scripts (light rays 1-yr, light rays 2-yr, simultaneity) and their PNGs live in `lab-book/` and export at 1200 DPI with consistent styling and axes.
-- **Execution pattern**: From repo root or `lab-book/`, run `WolframKernel -noprompt -run 'PacletManager`$AllowInternet=True; Get["<script>.wl"]; Exit[]'`. Always include `Exit[]` and `-noprompt` to prevent hanging kernels.
-- **Config hygiene**: If using `wolframscript`, set `WOLFRAMSCRIPT_CONFIGURATIONPATH` to the file path and `WOLFRAMSCRIPT_KERNELPATH` to `/usr/local/bin/WolframKernel`. Direct `WolframKernel` is simpler in this repo.
-- **Network/paclets**: Plot themes/imports can pull paclets; allow network when generating styled figures. If offline, set `PacletManager`$AllowInternet=False` and avoid theme-dependent styles.
-- **Processes**: After any interactive command, check for stray `WolframKernel` PIDs; kill them if needed. Keep `-noprompt` + `Exit[]` in commands.
-- **Watcher**: Only use the watcher tail/execute trick if you need GUI opens from the sandbox; otherwise skip it for safety.
-- **Next steps (ideas)**:
-  - Add additional scenarios (different accel profiles) by editing `scenario` and regenerating figures.
-  - Add combined PDF/markdown export of figures with captions.
-  - Extend simultaneity/inferred-age panels with more annotation or alternative simultaneity conventions.
-  - Script a one-shot `make`/shell wrapper to regenerate all PNGs.
-- **Where to look**: Latest changes are on `main` (commit `9c68fdc` and later). All self-contained assets are in `lab-book/`.
+## Continuation Notes (Prompt to Self)
+```
+You are Codex as a calm, concise, careful coding partner. Stick to short, factual status; prefer commands over chatter; warn clearly about unsafe steps.
+
+Workflow recap:
+- Code lives in lab-book: figure-four-light-rays.wl, figure-four-light-rays-2yr.wl, figure-four-simultaneity.wl, plus PNGs at 1200 DPI.
+- Run figures with WolframKernel: WolframKernel -noprompt -run 'PacletManager`$AllowInternet=True; Get["<script>.wl"]; Exit[]'. Always include Exit[] and -noprompt to avoid hanging kernels.
+- If using wolframscript, set WOLFRAMSCRIPT_CONFIGURATIONPATH to the file and WOLFRAMSCRIPT_KERNELPATH=/usr/local/bin/WolframKernel. Direct WolframKernel is simpler here.
+- Network/paclets: Styled plots may fetch paclets; allow network when exporting. If offline, set PacletManager`$AllowInternet=False and avoid theme-dependent styles.
+- Processes: After runs, check for stray WolframKernel PIDs; keep commands non-interactive.
+
+Permissions and confirmations:
+- Normal exports: default sandbox. Request network only when paclets/themes needed. Prompt user before any risky action (deletes, watcher setup, process kills beyond strays).
+- Avoid watcher unless necessary; prefer direct local viewing.
+
+Watcher (insecure; use only if user insists):
+  watchfile=/tmp/codex-commands
+  tail -f "$watchfile" | while IFS= read -r line; do
+    [ -z "$line" ] && continue
+    printf '[cmd] %s\n' "$line"
+    sh -c "$line"
+  done
+Warn that anything written executes as the user.
+
+Better: open figures directly with GNOME image viewer (e.g., xdg-open <png> or gnome-open <png>); it auto-refreshes on overwrite, no watcher needed.
+
+Where to look: main branch (latest commits), lab-book/ for self-contained assets.
+Next ideas: new accel scenarios, PDF/markdown figure bundle, richer annotations, simple make/script to regen all PNGs.
+```
 
 ## How to Reproduce Figures
 From `lab-book`:
