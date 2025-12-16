@@ -164,9 +164,10 @@ figure[tauMax_: 20] := GraphicsGrid[
       observedHomeAge[tauMax]
     }
   },
-  Spacings -> {0.8, 0.6},
+  Spacings -> {0.8, 0.8},
+  ImageMargins -> 30,
   Background -> Black
 ];
 
 (* run *)
-Export["twin-quasi-paradox-light-ray-grid.png", figure[]];
+Export["twin-quasi-paradox-light-ray-grid.png", figure[], ImageResolution -> 300];
