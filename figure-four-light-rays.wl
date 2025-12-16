@@ -31,9 +31,10 @@ solve[tauMax_] := Module[{sol},
 ];
 
 lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
-  {sol = solve[tauMax], tauMarks, pts, lightRays, labels},
+  {sol = solve[tauMax], tauMarks, pts, lightRays, labels, homeLine},
   tauMarks = Subdivide[0., tauMax, n];
   pts = {sol["x"][#], sol["t"][#]} & /@ tauMarks;
+  homeLine = {homeColor, Thick, Line[{{0, 0}, {0, sol["t"][tauMax]}}]};
   lightRays =
     Table[
       With[{pt = {sol["x"][t], sol["t"][t]},
@@ -67,15 +68,16 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     GridLines -> Automatic,
     PlotLabel -> Style["Home \[Rule] traveler signals", White, 14, Bold],
     Prolog -> lightRays,
-    Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
+    Epilog -> {homeLine, {DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
   ]
 ];
 
 lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
-  {sol = solve[tauMax], tauMarks, pts, lightRays, labels},
+  {sol = solve[tauMax], tauMarks, pts, lightRays, labels, homeLine},
   tauMarks = Subdivide[0., tauMax, n];
   pts = {sol["x"][#], sol["t"][#]} & /@ tauMarks;
+  homeLine = {homeColor, Thick, Line[{{0, 0}, {0, sol["t"][tauMax]}}]};
   lightRays =
     Table[
       With[{pt = {sol["x"][t], sol["t"][t]},
