@@ -6,7 +6,7 @@ c = 299792458;
 yearSec = 365.25*24*3600;
 travColor = RGBColor[0.35, 0.6, 1];
 homeColor = Orange;
-plotPad = {{70, 40}, {110, 50}};
+plotPad = {{60, 20}, {80, 40}};
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -60,7 +60,7 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     Axes -> False,
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
-    ImageSize -> 500,
+    ImageSize -> 620,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -102,7 +102,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     Axes -> False,
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
-    ImageSize -> 500,
+    ImageSize -> 620,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -128,7 +128,7 @@ observedTravelerAge[tauMax_: 20] := Module[
     PlotStyle -> {travColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
-    ImageSize -> 500,
+    ImageSize -> 620,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -157,7 +157,7 @@ observedHomeAge[tauMax_: 20] := Module[
     PlotStyle -> {homeColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
-    ImageSize -> 500,
+    ImageSize -> 620,
     PlotRangePadding -> Scaled[0.05],
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
@@ -183,7 +183,7 @@ figure[tauMax_: 20] := GraphicsGrid[
       observedHomeAge[tauMax]
     }
   },
-  Spacings -> {1.3, 1.2},
+  Spacings -> {1.0, 1.0},
   Background -> Black
 ];
 
