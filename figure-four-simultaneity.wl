@@ -66,7 +66,7 @@ travelerSimultaneity[tauMax_: 20, n_: 20] := Module[
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
     GridLines -> Automatic,
-    PlotLabel -> Style["Home \[Rule] traveler simultaneity", White, 14, Bold],
+    PlotLabel -> Style["Traveler \[Rule] home simultaneity", White, 14, Bold],
     Prolog -> Join[{homeLine}, lines],
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
@@ -104,7 +104,7 @@ homeSimultaneity[tauMax_: 20, n_: 20] := Module[
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
     GridLines -> Automatic,
-    PlotLabel -> Style["Traveler \[Rule] home simultaneity", White, 14, Bold],
+    PlotLabel -> Style["Home \[Rule] traveler simultaneity", White, 14, Bold],
     Prolog -> Join[{homeLine}, lines],
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
