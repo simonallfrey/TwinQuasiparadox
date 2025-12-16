@@ -176,11 +176,11 @@ figure[tauMax_: 20] := GraphicsGrid[
   {
     {
       lightRaysHomeToTraveler[tauMax, 20],
-      observedTravelerAge[tauMax]
+      observedHomeAge[tauMax]
     },
     {
       lightRaysTravelerToHome[tauMax, 20],
-      observedHomeAge[tauMax]
+      observedTravelerAge[tauMax]
     }
   },
   Spacings -> {1.0, 1.0},
