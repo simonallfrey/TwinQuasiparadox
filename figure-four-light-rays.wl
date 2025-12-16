@@ -4,6 +4,8 @@
 g = 9.80665;
 c = 299792458;
 yearSec = 365.25*24*3600;
+travColor = RGBColor[0.35, 0.6, 1];
+homeColor = Orange;
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -36,9 +38,9 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
       With[{pt = {sol["x"][t], sol["t"][t]},
             emit = sol["t"][t] - Abs[sol["x"][t]]},
         {
-          {Yellow, Dashed}, Line[{{0, emit}, pt}],
-          {Yellow, PointSize[0.02]}, Point[{0, emit}],
-          Text[Style[NumberForm[emit, {4, 1}], Yellow, 10, Bold], {0, emit}, {-1.2, 0}]
+          {homeColor, Dashed}, Line[{{0, emit}, pt}],
+          {homeColor, PointSize[0.02]}, Point[{0, emit}],
+          Text[Style[NumberForm[emit, {4, 1}], homeColor, 10, Bold], {0, emit}, {-1.2, 0}]
         }],
       {t, tauMarks}
     ] // Flatten;
@@ -49,7 +51,7 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     ];
   ParametricPlot[
     {sol["x"][\[Tau]], sol["t"][\[Tau]]}, {\[Tau], 0, tauMax},
-    PlotStyle -> {Thick, RGBColor[0.35, 0.6, 1]},
+    PlotStyle -> {Thick, travColor},
     AxesLabel -> {"x (ly)", "t (yr)"},
     BaseStyle -> 14,
     PlotRange -> {{-1, 10}, {0, All}},
@@ -72,9 +74,9 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
       With[{pt = {sol["x"][t], sol["t"][t]},
             arr = sol["t"][t] + Abs[sol["x"][t]]},
         {
-          {Cyan, Dashed}, Line[{pt, {0, arr}}],
-          {Cyan, PointSize[0.02]}, Point[{0, arr}],
-          Text[Style[NumberForm[arr, {4, 1}], Cyan, 10, Bold], {0, arr}, {-1.2, 0}]
+          {travColor, Dashed}, Line[{pt, {0, arr}}],
+          {travColor, PointSize[0.02]}, Point[{0, arr}],
+          Text[Style[NumberForm[arr, {4, 1}], travColor, 10, Bold], {0, arr}, {-1.2, 0}]
         }],
       {t, tauMarks}
     ] // Flatten;
@@ -85,7 +87,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     ];
   ParametricPlot[
     {sol["x"][\[Tau]], sol["t"][\[Tau]]}, {\[Tau], 0, tauMax},
-    PlotStyle -> {Thick, RGBColor[0.35, 0.6, 1]},
+    PlotStyle -> {Thick, travColor},
     AxesLabel -> {"x (ly)", "t (yr)"},
     BaseStyle -> 14,
     PlotRange -> {{-1, 10}, {0, All}},
@@ -110,7 +112,7 @@ observedTravelerAge[tauMax_: 20] := Module[
     data,
     Frame -> True,
     FrameLabel -> {"Home proper time (yr)", "Observed traveler age (yr)"},
-    PlotStyle -> {RGBColor[0.35, 0.6, 1]},
+    PlotStyle -> {travColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
     ImageSize -> 500,
@@ -137,7 +139,7 @@ observedHomeAge[tauMax_: 20] := Module[
     data,
     Frame -> True,
     FrameLabel -> {"Traveler proper time (yr)", "Observed home age (yr)"},
-    PlotStyle -> {Orange},
+    PlotStyle -> {homeColor},
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
     ImageSize -> 500,
@@ -172,7 +174,7 @@ figure[tauMax_: 20] := GraphicsGrid[
       observedHomeAge[tauMax]
     }
   },
-  Spacings -> {0.8, 0.8},
+  Spacings -> {1.0, 1.0},
   Background -> Black
 ];
 
