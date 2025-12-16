@@ -28,13 +28,14 @@ solve[tauMax_] := Module[{sol},
 ];
 
 figure[tauMax_: 20] := Module[
-  {sol = solve[tauMax], tauGrid, worldline, arrivalsAtHome, topData, topPlot, emitsToTraveler, bottomData, bottomPlot},
+  {sol = solve[tauMax], tauGrid, worldline, arrivalsAtHome, topData, topDiagMax, topPlot, emitsToTraveler, bottomData, bottomDiagMax, bottomPlot},
   tauGrid = Subdivide[0., tauMax, 400];
   worldline = {sol["x"][#], sol["t"][#]} & /@ tauGrid;
 
   (* signals from traveler to home: arrival time at x=0 versus traveler proper time *)
   arrivalsAtHome = sol["t"] /@ tauGrid + Abs[sol["x"] /@ tauGrid];
   topData = SortBy[Transpose[{arrivalsAtHome, tauGrid}], First];
+  topDiagMax = Max[First /@ topData];
   topPlot = ListLinePlot[
     topData,
     Frame -> True,
@@ -45,12 +46,16 @@ figure[tauMax_: 20] := Module[
     GridLines -> Automatic,
     Background -> Black,
     FrameStyle -> White,
-    BaseStyle -> {White, 12}
+    BaseStyle -> {White, 12},
+    Epilog -> {
+      {Gray, Dashed, Line[{{0, 0}, {topDiagMax, topDiagMax}}]}
+    }
   ];
 
   (* signals from home to traveler: emission time from x=0 that reaches traveler at a given tau *)
   emitsToTraveler = sol["t"] /@ tauGrid - Abs[sol["x"] /@ tauGrid];
   bottomData = Transpose[{tauGrid, emitsToTraveler}];
+  bottomDiagMax = Max[tauMax, Max[Last /@ bottomData]];
   bottomPlot = ListLinePlot[
     bottomData,
     Frame -> True,
@@ -61,7 +66,10 @@ figure[tauMax_: 20] := Module[
     GridLines -> Automatic,
     Background -> Black,
     FrameStyle -> White,
-    BaseStyle -> {White, 12}
+    BaseStyle -> {White, 12},
+    Epilog -> {
+      {Gray, Dashed, Line[{{0, 0}, {bottomDiagMax, bottomDiagMax}}]}
+    }
   ];
 
   GraphicsGrid[
