@@ -6,7 +6,7 @@ c = 299792458;
 yearSec = 365.25*24*3600;
 travColor = RGBColor[0.35, 0.6, 1];
 homeColor = Orange;
-plotPad = 30;
+plotPad = {{70, 40}, {80, 70}};
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -50,28 +50,25 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
       Text[Style[NumberForm[#1, {4, 1}], Orange, 10, Bold], #2] &,
       {tauMarks, pts}
     ];
-  Labeled[
-    ParametricPlot[
-      {sol["x"][\[Tau]], sol["t"][\[Tau]]}, {\[Tau], 0, tauMax},
-      PlotStyle -> {Thick, travColor},
-      Frame -> True,
-      FrameLabel -> {"x (ly)", "t (yr)"},
-      FrameStyle -> White,
-      BaseStyle -> {White, 12},
-      Axes -> False,
-      PlotRange -> {{-1, 10}, {0, All}},
-      AspectRatio -> 1,
-      ImageSize -> 500,
-      PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> plotPad,
-      FrameTicksStyle -> White,
-      GridLines -> Automatic,
-      Prolog -> lightRays,
-      Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
-      Background -> Black
-    ],
-    Style["Home \[Rule] traveler signals", White, 14, Bold],
-    {Bottom}
+  ParametricPlot[
+    {sol["x"][\[Tau]], sol["t"][\[Tau]]}, {\[Tau], 0, tauMax},
+    PlotStyle -> {Thick, travColor},
+    Frame -> True,
+    FrameLabel -> {"x (ly)", "t (yr)"},
+    FrameStyle -> White,
+    BaseStyle -> {White, 12},
+    Axes -> False,
+    PlotRange -> {{-1, 10}, {0, All}},
+    AspectRatio -> 1,
+    ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> plotPad,
+    FrameTicksStyle -> White,
+    GridLines -> Automatic,
+    PlotLabel -> Placed[Style["Home \[Rule] traveler signals", White, 14, Bold], Bottom],
+    Prolog -> lightRays,
+    Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
+    Background -> Black
   ]
 ];
 
@@ -95,28 +92,25 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
       Text[Style[NumberForm[#1, {4, 1}], Orange, 10, Bold], #2] &,
       {tauMarks, pts}
     ];
-  Labeled[
-    ParametricPlot[
-      {sol["x"][\[Tau]], sol["t"][\[Tau]]}, {\[Tau], 0, tauMax},
-      PlotStyle -> {Thick, travColor},
-      Frame -> True,
-      FrameLabel -> {"x (ly)", "t (yr)"},
-      FrameStyle -> White,
-      BaseStyle -> {White, 12},
-      Axes -> False,
-      PlotRange -> {{-1, 10}, {0, All}},
-      AspectRatio -> 1,
-      ImageSize -> 500,
-      PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> plotPad,
-      FrameTicksStyle -> White,
-      GridLines -> Automatic,
-      Prolog -> lightRays,
-      Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
-      Background -> Black
-    ],
-    Style["Traveler \[Rule] home signals", White, 14, Bold],
-    {Bottom}
+  ParametricPlot[
+    {sol["x"][\[Tau]], sol["t"][\[Tau]]}, {\[Tau], 0, tauMax},
+    PlotStyle -> {Thick, travColor},
+    Frame -> True,
+    FrameLabel -> {"x (ly)", "t (yr)"},
+    FrameStyle -> White,
+    BaseStyle -> {White, 12},
+    Axes -> False,
+    PlotRange -> {{-1, 10}, {0, All}},
+    AspectRatio -> 1,
+    ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> plotPad,
+    FrameTicksStyle -> White,
+    GridLines -> Automatic,
+    PlotLabel -> Placed[Style["Traveler \[Rule] home signals", White, 14, Bold], Bottom],
+    Prolog -> lightRays,
+    Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
+    Background -> Black
   ]
 ];
 
@@ -127,28 +121,25 @@ observedTravelerAge[tauMax_: 20] := Module[
   data = SortBy[Transpose[{arrivalsAtHome, tauGrid}], First];
   diagMax = Max[First /@ data];
   prMax = diagMax;
-  Labeled[
-    ListLinePlot[
-      data,
-      Frame -> True,
-      FrameLabel -> {"Home proper time (yr)", "Observed traveler age (yr)"},
-      PlotStyle -> {travColor},
-      PlotRange -> {{0, prMax}, {0, prMax}},
-      AspectRatio -> 1,
-      ImageSize -> 500,
-      PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> plotPad,
-      FrameTicksStyle -> White,
-      GridLines -> Automatic,
-      Background -> Black,
-      FrameStyle -> White,
-      BaseStyle -> {White, 12},
-      Epilog -> {
-        {Gray, Dashed, Line[{{0, 0}, {diagMax, diagMax}}]}
-      }
-    ],
-    Style["Traveler age observed at home", White, 14, Bold],
-    {Bottom}
+  ListLinePlot[
+    data,
+    Frame -> True,
+    FrameLabel -> {"Home proper time (yr)", "Observed traveler age (yr)"},
+    PlotStyle -> {travColor},
+    PlotRange -> {{0, prMax}, {0, prMax}},
+    AspectRatio -> 1,
+    ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> plotPad,
+    FrameTicksStyle -> White,
+    GridLines -> Automatic,
+    Background -> Black,
+    FrameStyle -> White,
+    BaseStyle -> {White, 12},
+    PlotLabel -> Placed[Style["Traveler age observed at home", White, 14, Bold], Bottom],
+    Epilog -> {
+      {Gray, Dashed, Line[{{0, 0}, {diagMax, diagMax}}]}
+    }
   ]
 ];
 
@@ -159,28 +150,25 @@ observedHomeAge[tauMax_: 20] := Module[
   data = Transpose[{tauGrid, emitsToTraveler}];
   diagMax = Max[tauMax, Max[Last /@ data]];
   prMax = diagMax;
-  Labeled[
-    ListLinePlot[
-      data,
-      Frame -> True,
-      FrameLabel -> {"Traveler proper time (yr)", "Observed home age (yr)"},
-      PlotStyle -> {homeColor},
-      PlotRange -> {{0, prMax}, {0, prMax}},
-      AspectRatio -> 1,
-      ImageSize -> 500,
-      PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> plotPad,
-      FrameTicksStyle -> White,
-      GridLines -> Automatic,
-      Background -> Black,
-      FrameStyle -> White,
-      BaseStyle -> {White, 12},
-      Epilog -> {
-        {Gray, Dashed, Line[{{0, 0}, {diagMax, diagMax}}]}
-      }
-    ],
-    Style["Home age observed by traveler", White, 14, Bold],
-    {Bottom}
+  ListLinePlot[
+    data,
+    Frame -> True,
+    FrameLabel -> {"Traveler proper time (yr)", "Observed home age (yr)"},
+    PlotStyle -> {homeColor},
+    PlotRange -> {{0, prMax}, {0, prMax}},
+    AspectRatio -> 1,
+    ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> plotPad,
+    FrameTicksStyle -> White,
+    GridLines -> Automatic,
+    Background -> Black,
+    FrameStyle -> White,
+    BaseStyle -> {White, 12},
+    PlotLabel -> Placed[Style["Home age observed by traveler", White, 14, Bold], Bottom],
+    Epilog -> {
+      {Gray, Dashed, Line[{{0, 0}, {diagMax, diagMax}}]}
+    }
   ]
 ];
 
