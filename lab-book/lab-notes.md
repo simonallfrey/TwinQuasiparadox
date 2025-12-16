@@ -32,6 +32,7 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
 
 ## Simultaneity vs. Light Signals
 - **No frame-independent “now”**: In SR, simultaneity at a distance is convention-dependent (e.g., Einstein sync). It’s a useful foliation for bookkeeping but not an observable.
+- **Einstein sync in one sentence**: Send a light pulse from A at time $t_A$, it reflects at B, and returns to A at time $t'_A$; assign B’s event the time $(t_A + t'_A)/2$. Do that everywhere and you get the usual flat hyperplanes of constant time in an inertial frame. “According to this frame, that distant event is happening now” means “according to this chosen sync convention and its foliation.”
 - **Light-signal view (operational)**: What the traveler can actually know is what arrives on their worldline via light; that’s what the light-ray figures show—causal observations of home’s aging.
 - **Simultaneity view (inferred)**: Lines of simultaneity assign a “now” to distant events from a chosen frame. The simultaneity figures show inferred home/traveler times, not measured ones.
 - **Causal grid vs. foliation**: The “correct” causal structure is light cones and spacelike elsewhere; there’s no canonical grid outside the cone. Use light signals for physical observables; use simultaneity slices for frame-based inference, keeping in mind they’re a choice, not physics.
