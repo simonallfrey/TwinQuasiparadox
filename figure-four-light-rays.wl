@@ -55,6 +55,8 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
     ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> 20,
     Prolog -> lightRays,
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
@@ -89,6 +91,8 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     PlotRange -> {{-1, 10}, {0, All}},
     AspectRatio -> 1,
     ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> 20,
     Prolog -> lightRays,
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
@@ -110,6 +114,8 @@ observedTravelerAge[tauMax_: 20] := Module[
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
     ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> 20,
     GridLines -> Automatic,
     Background -> Black,
     FrameStyle -> White,
@@ -135,6 +141,8 @@ observedHomeAge[tauMax_: 20] := Module[
     PlotRange -> {{0, prMax}, {0, prMax}},
     AspectRatio -> 1,
     ImageSize -> 500,
+    PlotRangePadding -> Scaled[0.05],
+    ImagePadding -> 20,
     GridLines -> Automatic,
     Background -> Black,
     FrameStyle -> White,
@@ -165,7 +173,6 @@ figure[tauMax_: 20] := GraphicsGrid[
     }
   },
   Spacings -> {0.8, 0.8},
-  ImageMargins -> 30,
   Background -> Black
 ];
 
