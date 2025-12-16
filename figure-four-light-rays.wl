@@ -6,7 +6,7 @@ c = 299792458;
 yearSec = 365.25*24*3600;
 travColor = RGBColor[0.35, 0.6, 1];
 homeColor = Orange;
-plotPad = {{70, 40}, {80, 70}};
+plotPad = {{70, 40}, {110, 50}};
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -65,7 +65,7 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
     GridLines -> Automatic,
-    PlotLabel -> Placed[Style["Home \[Rule] traveler signals", White, 14, Bold], Bottom],
+    PlotLabel -> Style["Home \[Rule] traveler signals", White, 14, Bold],
     Prolog -> lightRays,
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
@@ -107,7 +107,7 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
     ImagePadding -> plotPad,
     FrameTicksStyle -> White,
     GridLines -> Automatic,
-    PlotLabel -> Placed[Style["Traveler \[Rule] home signals", White, 14, Bold], Bottom],
+    PlotLabel -> Style["Traveler \[Rule] home signals", White, 14, Bold],
     Prolog -> lightRays,
     Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
     Background -> Black
@@ -136,7 +136,7 @@ observedTravelerAge[tauMax_: 20] := Module[
     Background -> Black,
     FrameStyle -> White,
     BaseStyle -> {White, 12},
-    PlotLabel -> Placed[Style["Traveler age observed at home", White, 14, Bold], Bottom],
+    PlotLabel -> Style["Traveler age observed at home", White, 14, Bold],
     Epilog -> {
       {Gray, Dashed, Line[{{0, 0}, {diagMax, diagMax}}]}
     }
@@ -165,7 +165,7 @@ observedHomeAge[tauMax_: 20] := Module[
     Background -> Black,
     FrameStyle -> White,
     BaseStyle -> {White, 12},
-    PlotLabel -> Placed[Style["Home age observed by traveler", White, 14, Bold], Bottom],
+    PlotLabel -> Style["Home age observed by traveler", White, 14, Bold],
     Epilog -> {
       {Gray, Dashed, Line[{{0, 0}, {diagMax, diagMax}}]}
     }
@@ -183,7 +183,7 @@ figure[tauMax_: 20] := GraphicsGrid[
       observedHomeAge[tauMax]
     }
   },
-  Spacings -> {1.2, 1.2},
+  Spacings -> {1.3, 1.2},
   Background -> Black
 ];
 
