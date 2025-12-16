@@ -85,9 +85,20 @@ Exports:
 - `twin-quasi-paradox-simultaneity-grid.png`
 
 ## Figures
-- **Light rays (1 yr)**: `twin-quasi-paradox-light-ray-grid.png`
-- **Light rays (2 yr)**: `twin-quasi-paradox-light-ray-grid-2yr.png`
-- **Simultaneity**: `twin-quasi-paradox-simultaneity-grid.png`
+- **Light rays (1 yr)**:
+  - File: `twin-quasi-paradox-light-ray-grid.png`
+  - Preview:
+    ![Light rays 1 yr](twin-quasi-paradox-light-ray-grid.png)
+
+- **Light rays (2 yr)**:
+  - File: `twin-quasi-paradox-light-ray-grid-2yr.png`
+  - Preview:
+    ![Light rays 2 yr](twin-quasi-paradox-light-ray-grid-2yr.png)
+
+- **Simultaneity**:
+  - File: `twin-quasi-paradox-simultaneity-grid.png`
+  - Preview:
+    ![Simultaneity](twin-quasi-paradox-simultaneity-grid.png)
 
 ## Full Code Listings
 
