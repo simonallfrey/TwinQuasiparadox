@@ -6,6 +6,7 @@ c = 299792458;
 yearSec = 365.25*24*3600;
 travColor = RGBColor[0.35, 0.6, 1];
 homeColor = Orange;
+plotPad = 30;
 
 (* scenario: {tauStart, tauEnd, accelLyPerYear2} *)
 scenario = {{0, 5, 0.3}, {5, 15, -0.3}, {15, 20, 0.3}};
@@ -62,7 +63,8 @@ lightRaysHomeToTraveler[tauMax_: 20, n_: 20] := Module[
       AspectRatio -> 1,
       ImageSize -> 500,
       PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> 20,
+      ImagePadding -> plotPad,
+      FrameTicksStyle -> White,
       GridLines -> Automatic,
       Prolog -> lightRays,
       Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
@@ -106,7 +108,8 @@ lightRaysTravelerToHome[tauMax_: 20, n_: 20] := Module[
       AspectRatio -> 1,
       ImageSize -> 500,
       PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> 20,
+      ImagePadding -> plotPad,
+      FrameTicksStyle -> White,
       GridLines -> Automatic,
       Prolog -> lightRays,
       Epilog -> {{DarkBlue, PointSize[0.03], Point[pts]}, labels},
@@ -134,7 +137,8 @@ observedTravelerAge[tauMax_: 20] := Module[
       AspectRatio -> 1,
       ImageSize -> 500,
       PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> 20,
+      ImagePadding -> plotPad,
+      FrameTicksStyle -> White,
       GridLines -> Automatic,
       Background -> Black,
       FrameStyle -> White,
@@ -165,7 +169,8 @@ observedHomeAge[tauMax_: 20] := Module[
       AspectRatio -> 1,
       ImageSize -> 500,
       PlotRangePadding -> Scaled[0.05],
-      ImagePadding -> 20,
+      ImagePadding -> plotPad,
+      FrameTicksStyle -> White,
       GridLines -> Automatic,
       Background -> Black,
       FrameStyle -> White,
