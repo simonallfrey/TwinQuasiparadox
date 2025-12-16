@@ -13,14 +13,14 @@ This notebook documents the Codex-driven exploration of the Twin (Quasi) Paradox
 ## Metric and Time Dilation (Signature − + + +)
 - Minkowski line element (1+1 for our plots, `c=1` in ly/yr units):
   $$
-  ds^2 = -\,dt^2 + dx^2 = -\,d\\tau^2
+  ds^2 = -\,dt^2 + dx^2 = -\,d\tau^2
   $$
   The spatial part enters with a negative sign in this signature; proper time is the negative norm of the spacetime interval.
 - For a timelike worldline with velocity $v = dx/dt$:
   $$
-  d\\tau = dt\\,\\sqrt{1 - v^2} \quad\\Rightarrow\quad \\gamma = \\frac{dt}{d\\tau} = \\frac{1}{\\sqrt{1 - v^2}}
+  d\tau = dt\,\sqrt{1 - v^2} \quad\Rightarrow\quad \gamma = \frac{dt}{d\tau} = \frac{1}{\sqrt{1 - v^2}}
   $$
-- Rapidities evolve via $\\eta' = a(\\tau)$ and enforce $\\cosh \\eta = dt/d\\tau = \\gamma$, $\\sinh \\eta = dx/d\\tau$; these give the ODEs used in the scripts.
+- Rapidities evolve via $\eta' = a(\tau)$ and enforce $\cosh \eta = dt/d\tau = \gamma$, $\sinh \eta = dx/d\tau$; these give the ODEs used in the scripts.
 
 ## Visualization Themes
 - **Light-ray grids** (`figure-four-light-rays.wl`): Uses actual light signals between traveler and home; overlays home worldline; plots observed ages vs proper times.
