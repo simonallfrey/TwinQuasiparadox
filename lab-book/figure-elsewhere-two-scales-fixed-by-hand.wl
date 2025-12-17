@@ -12,30 +12,21 @@ makePanel[cVal_, xRange_, tRange_, xLabel_, tLabel_, tag_] := Module[{},
      Graphics[Text[Style[tag, 12, Gray], {0, -0.82 tRange}]]
      },
     Frame -> True,
-    FrameLabel -> {{None, None}, {Style[xLabel, 11, White], None}},
+    FrameLabel -> {Style[xLabel, 11, White], None},
     FrameTicksStyle -> White,
     PlotRange -> {{-xRange, xRange}, {-tRange, tRange}},
     Background -> Black,
     AxesStyle -> White,
     BaseStyle -> {White, 11},
-    ImagePadding -> {{80, 50}, {50, 50}},
+    ImagePadding -> 50,
     ImageSize -> 500,
     AspectRatio -> 1,
-    Epilog -> {
-      Inset[
-        Rotate[Style[tLabel, 11, White], Pi/2],
-        {-(xRange) - 0.18 xRange, 0},
-        {0, 0},
-        Automatic,
-        {0, 1}
-        ]
-      }
+    PlotRangeCipping -> False
     ]
   ];
 
-panel1 = makePanel[1, 1, 1, "x (light-sec)", "t (sec)", "c = 1"];
+panel1 = makePanel[1, 1, 1, "SJA3 x (light-sec)", "t (sec)", "c = 1"];
 cKmPerMs = 300; (* 3e5 km/s = 300 km/ms *)
 panel2 = makePanel[cKmPerMs, 1000, 20, "x (km)", "t (ms)", "c = 3×10^5 km/s"];
 
-GraphicsRow[{panel1, panel2}, Spacings -> 0.8, Background -> Black, ImageMargins -> 0] //
-  Export["lab-book/elsewhere-two-scales.png", #, ImageResolution -> 300] &;
+GraphicsRow[{panel1, panel2}, Spacings -> 0.8, Background -> Black, ImageMargins -> 0] // Export["lab-book/elsewhere-two-scales-fixed-by-hand.png", #, ImageResolution -> 300] &;
